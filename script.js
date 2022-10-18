@@ -2,13 +2,15 @@ const addBtn = document.querySelector('.add');
 const saveBtn = document.querySelector('.save');
 const cancelBtn = document.querySelector('.cancel');
 const deleteBtn = document.getElementsByClassName('delete-note');
-const deleteAllBtn = document.getElementsByClassName('.delete-all');
+const deleteAllBtn = document.querySelector('.delete-all');
 
 const noteArea = document.querySelector('.note-area');
 const notePanel = document.querySelector('.note-panel');
 const category = document.querySelector('#category');
 const textarea = document.querySelector('#text');
 const error = document.querySelector('.error');
+
+
 let selectedValue;
 
 let cardID = 0;
@@ -25,14 +27,22 @@ const closePanel = () => {
 }
 
 const addNote = () => {
-    if (textarea.value !== '' && category.selectedIndex == 1) {
+    if (textarea.value !== '' && category.options[category.selectedIndex].value !== 0) {
+        createNote();
         error.style.visibility = 'hidden';
     } else {
         error.style.visibility = 'visible';
     }
 }
 
+const createNote = () => {
+    const newNote = document.createElement('div');
+    newNote.classList.add('note');
+    newNote.setAttribute('id', cardID);
 
+    noteArea.appendChild(newNote);
+    cardID++;
+}
 
 addBtn.addEventListener('click', openPanel)
 cancelBtn.addEventListener('click', closePanel)
